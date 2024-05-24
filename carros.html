@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="field">
+        <label class="label">Name</label>
+        <div class="control">
+            <input class="input" type="text" placeholder="Text input">
+        </div>
+    </div>
+    <form action="inserirCarro.php" method="POST">
+        <h1>Cadastre Seu veiculo</h1>
+        <label for="marca">Marca</label>
+        <br>
+        <input type="text" name="marca">
+        <br>
+        <label for="modelo">Modelo</label>
+        <br>
+        <input type="text" name="modelo">
+        <br>
+        <label for="ano">Ano</label>
+        <br>
+        <input type="number" name="ano">
+        <br>
+        <label for="placa">Placa</label>
+        <br>
+        <input type="text" name="placa" id="">
+        <br>
+        <input type="submit" value="enviar">
+    </form>
+    <h2>Ja possuo cadastro</h2>
+    <button><a href="listarVeiculos.php">Listar</a></button>
+</body>
+
+</html>
