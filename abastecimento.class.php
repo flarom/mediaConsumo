@@ -111,5 +111,20 @@ class Abastecimento_class{
             exit();
         }
     }
+    public function buscarMedia($id){
+        $database = new Conexao();
+        $db = $database->getConnection();
+        $sql = "SELECT media FROM abastecimento WHERE id_veiculo = :id_veiculo ORDER BY id_abastecimento DESC LIMIT 1";
+
+        try{
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(":id_veiculo", $id);
+            $stmt->execute();
+            return $stmt->fetchObject();
+        } catch (PDOException $e){
+            echo "Erro ao b uscar a media " . $e->getMessage();
+            exit();
+        }
+    }
 }
 

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 23/05/2024 às 02:39
--- Versão do servidor: 10.4.32-MariaDB
--- Versão do PHP: 8.2.12
+-- Generation Time: May 30, 2024 at 12:15 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Banco de dados: `consumo`
+-- Database: `consumo`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `abastecimento`
+-- Table structure for table `abastecimento`
 --
 
 CREATE TABLE `abastecimento` (
@@ -37,10 +37,19 @@ CREATE TABLE `abastecimento` (
   `media` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `abastecimento`
+--
+
+INSERT INTO `abastecimento` (`id_abastecimento`, `id_veiculo`, `litros`, `tanque_completo`, `hodometro`, `data`, `media`) VALUES
+(20, 23, 30.00, 0, 5600, '2024-05-28', 186.67),
+(21, 23, 50.00, 1, 5739, '2024-05-29', 2.78),
+(22, 23, 50.00, 1, 6200, '2024-05-31', 9.22);
+
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `veiculo`
+-- Table structure for table `veiculo`
 --
 
 CREATE TABLE `veiculo` (
@@ -52,44 +61,51 @@ CREATE TABLE `veiculo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Índices para tabelas despejadas
+-- Dumping data for table `veiculo`
+--
+
+INSERT INTO `veiculo` (`id_veiculo`, `marca`, `modelo`, `ano`, `placa`) VALUES
+(23, 'chevrolet', 'celta', 2006, 'ifj-2859');
+
+--
+-- Indexes for dumped tables
 --
 
 --
--- Índices de tabela `abastecimento`
+-- Indexes for table `abastecimento`
 --
 ALTER TABLE `abastecimento`
   ADD PRIMARY KEY (`id_abastecimento`),
   ADD KEY `id_veiculo` (`id_veiculo`);
 
 --
--- Índices de tabela `veiculo`
+-- Indexes for table `veiculo`
 --
 ALTER TABLE `veiculo`
   ADD PRIMARY KEY (`id_veiculo`);
 
 --
--- AUTO_INCREMENT para tabelas despejadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de tabela `abastecimento`
+-- AUTO_INCREMENT for table `abastecimento`
 --
 ALTER TABLE `abastecimento`
-  MODIFY `id_abastecimento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_abastecimento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
--- AUTO_INCREMENT de tabela `veiculo`
+-- AUTO_INCREMENT for table `veiculo`
 --
 ALTER TABLE `veiculo`
-  MODIFY `id_veiculo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id_veiculo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
--- Restrições para tabelas despejadas
+-- Constraints for dumped tables
 --
 
 --
--- Restrições para tabelas `abastecimento`
+-- Constraints for table `abastecimento`
 --
 ALTER TABLE `abastecimento`
   ADD CONSTRAINT `abastecimento_ibfk_1` FOREIGN KEY (`id_veiculo`) REFERENCES `veiculo` (`id_veiculo`);

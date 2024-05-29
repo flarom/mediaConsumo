@@ -1,11 +1,14 @@
 <?php
 require_once "conexao.class.php"; 
+require_once "abastecimento.class.php";
 class Veiculos_class{
     private $id_veiculo;
     private $marca;
     private $modelo;
     private $ano;
     private $placa;
+    private $abastecimentos;
+    private $hodometro;
 
     public function getIdVeiculo() {
         return $this->id_veiculo;
@@ -46,7 +49,28 @@ class Veiculos_class{
     public function setPlaca($placa) {
         $this->placa = $placa;
     }
+    public function getHodometro() {
+        return $this->hodometro;
+    }
+    public function setHodometro($hodometro) {
+        $this->hodometro = $hodometro;
+    }
+    public function getMedia(){   
+        $database = new Conexao();
+        $db = $database->getConnection();
 
+        $sql = "SELECT media FROM abastecimento WHERE id_veiculo = :id_veiculo ORDER BY id_abastecimento DESC LIMIT 1";
+        
+        try{
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(":id_veiculo", $this->id_veiculo);
+            $stmt->execute();
+            return $stmt->fetchObject()->media;
+        } catch (PDOException $e){
+            echo "Erro ao b uscar a media " . $e->getMessage();
+            exit();
+        }
+    }
     function inserirVeiculo()
     {
         $database = new Conexao();
@@ -61,7 +85,6 @@ class Veiculos_class{
             $stmt->bindParam(":placa",$this->placa);
             $stmt->execute();
             $this->id_veiculo = $db->lastInsertId(); // Definindo o ID do veículo após a inserção
-            echo "DEU BOM";
             return true;
         } catch (PDOException $e) {
             echo "Erro ao inserir pessoa: " . $e->getMessage();
@@ -73,12 +96,12 @@ class Veiculos_class{
         $database = new Conexao();
         $db = $database->getConnection();
 
-        $sql = "SELECT *, (SELECT hodometro from abastecimento WHERE abastecimento.id_veiculo = veiculo.id_veiculo order by id_abastecimento DESC LIMIT 1) as km FROM veiculo";
+        $sql = "SELECT *, (SELECT hodometro from abastecimento WHERE abastecimento.id_veiculo = veiculo.id_veiculo order by id_abastecimento DESC LIMIT 1) as hodometro FROM veiculo";
 
         try {
             $stmt = $db->query($sql);
-            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            echo "deu bom"; // Apenas para verificação, você pode remover isso depois
+            $stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, "Veiculos_class");
+            $result = $stmt->fetchAll();
             return $result;
         } catch (PDOException $e) {
             echo 'Erro ao listar veículos:' . $e->getMessage();

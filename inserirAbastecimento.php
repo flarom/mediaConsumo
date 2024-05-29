@@ -21,8 +21,8 @@ $ab->inserirAbastecimento();
     <title>Document</title>
 </head>
 <body>
-    <H1>Sucesso !</H1>
+    <H2>Sucexo!</H2>
     <p>Abastecimento salvo com exito</p>
-   <button><a href="carros.html">Voltar</a></button>
+    <a href="listarVeiculos.php">Voltar</a>
 </body>
 </html>

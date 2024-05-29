@@ -9,14 +9,11 @@
 </head>
 
 <body>
-    <div class="field">
-        <label class="label">Name</label>
-        <div class="control">
-            <input class="input" type="text" placeholder="Text input">
-        </div>
-    </div>
+    <h2>Cadastrar veículo</h2>
+    <a href="listarVeiculos.php">Voltar</a>
+    <hr>
+    
     <form action="inserirCarro.php" method="POST">
-        <h1>Cadastre Seu veiculo</h1>
         <label for="marca">Marca</label>
         <br>
         <input type="text" name="marca">
@@ -33,10 +30,9 @@
         <br>
         <input type="text" name="placa" id="">
         <br>
-        <input type="submit" value="enviar">
+        <br>
+        <input type="submit" value="Enviar">
     </form>
-    <h2>Ja possuo cadastro</h2>
-    <button><a href="listarVeiculos.php">Listar</a></button>
 </body>
 
 </html>
