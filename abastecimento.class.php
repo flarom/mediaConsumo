@@ -1,6 +1,7 @@
-<?php 
+<?php
 require_once "conexao.class.php";
-class Abastecimento_class{
+class Abastecimento_class
+{
     private $id_abastecimento;
     private $id_veiculo;
     private $litros;
@@ -9,65 +10,79 @@ class Abastecimento_class{
     private $data;
     private $media;
 
-    public function getIdAbastecimento() {
+    public function getIdAbastecimento()
+    {
         return $this->id_abastecimento;
     }
 
-    public function setIdAbastecimento($id_abastecimento) {
+    public function setIdAbastecimento($id_abastecimento)
+    {
         $this->id_abastecimento = $id_abastecimento;
     }
 
-    public function getIdVeiculo() {
+    public function getIdVeiculo()
+    {
         return $this->id_veiculo;
     }
 
-    public function setIdVeiculo($id_veiculo) {
+    public function setIdVeiculo($id_veiculo)
+    {
         $this->id_veiculo = $id_veiculo;
     }
 
-    public function getLitros() {
+    public function getLitros()
+    {
         return $this->litros;
     }
 
-    public function setLitros($litros) {
+    public function setLitros($litros)
+    {
         $this->litros = $litros;
     }
 
-    public function getTanqueCompleto() {
+    public function getTanqueCompleto()
+    {
         return $this->tanque_completo;
     }
 
-    public function setTanqueCompleto($tanque_completo) {
+    public function setTanqueCompleto($tanque_completo)
+    {
         $this->tanque_completo = $tanque_completo;
     }
 
-    public function getHodometro() {
+    public function getHodometro()
+    {
         return $this->hodometro;
     }
 
-    public function setHodometro($hodometro) {
+    public function setHodometro($hodometro)
+    {
         $this->hodometro = $hodometro;
     }
 
-    public function getData() {
+    public function getData()
+    {
         return $this->data;
     }
 
-    public function setData($data) {
+    public function setData($data)
+    {
         $this->data = $data;
     }
 
-    public function getMedia() {
+    public function getMedia()
+    {
         return $this->media;
     }
 
-    public function setMedia($media) {
-        
+    public function setMedia($media)
+    {
+
         $this->media = $media;
     }
 
-    
-  
+
+
     public function inserirAbastecimento()
     {
         $database = new Conexao();
@@ -89,42 +104,64 @@ class Abastecimento_class{
             return false;
         }
     }
-    public function calcularMedia(){
+    public function calcularMedia()
+    {
         $anterior = $this->buscarKM();
         $kilometragem = $this->hodometro - $anterior->hodometro;
-        $media = $kilometragem/$this->litros;
+        $media = $kilometragem / $this->litros;
         $this->setMedia($media);
     }
-    public function buscarKM(){
+    public function buscarKM()
+    {
         $database = new Conexao();
         $db = $database->getConnection();
         $sql = "SELECT * FROM abastecimento WHERE id_veiculo = :id_veiculo ORDER BY id_abastecimento DESC LIMIT 1";
-    
+
         try {
             $stmt = $db->prepare($sql);
             $stmt->bindParam(":id_veiculo", $this->id_veiculo);
             $stmt->execute();
             return $stmt->fetchObject();
-            
+
         } catch (PDOException $e) {
             echo "Erro ao buscar abastecimento " . $e->getMessage();
             exit();
         }
     }
-    public function buscarMedia($id){
+    public function buscarMedia($id)
+    {
         $database = new Conexao();
         $db = $database->getConnection();
         $sql = "SELECT media FROM abastecimento WHERE id_veiculo = :id_veiculo ORDER BY id_abastecimento DESC LIMIT 1";
 
-        try{
+        try {
             $stmt = $db->prepare($sql);
             $stmt->bindParam(":id_veiculo", $id);
             $stmt->execute();
             return $stmt->fetchObject();
-        } catch (PDOException $e){
+        } catch (PDOException $e) {
             echo "Erro ao b uscar a media " . $e->getMessage();
             exit();
         }
     }
+    function listarAbastecimentos($id_veiculo)
+    {
+        $database = new Conexao();
+        $db = $database->getConnection();
+
+        $sql = "SELECT * FROM abastecimento WHERE id_veiculo = :id_veiculo";
+        try {
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(":id_veiculo", $id_veiculo);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        } catch (PDOException $e) {
+            echo 'Erro ao listar abastecimentos:' . $e->getMessage();
+            $result = [];
+            return $result;
+        }
+    }
+
 }
 

@@ -10,7 +10,7 @@ $veiculo->inserirVeiculo();
 $id_veiculo = $veiculo->getIdVeiculo();
 
 ?>
-<h1>Sucesso !</h1>
-<p>Seu carro foi cadastrado</p>
+<h2>Sucesso!</h2>
+<p>Seu veículo foi cadastrado</p>
 <br>
-<button><a href="carros.html">Voltar</a></button>
+<a href="abastecer.php?id_veiculo=<?php echo $veiculo->getIdVeiculo(); ?>">Abastecer</a>
