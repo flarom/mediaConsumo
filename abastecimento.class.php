@@ -110,7 +110,7 @@ class Abastecimento_class
         $kilometragem = $this->hodometro - $anterior->hodometro;
         $media = $kilometragem / $this->litros;
         $this->setMedia($media);
-    }
+    } 
     public function buscarKM()
     {
         $database = new Conexao();

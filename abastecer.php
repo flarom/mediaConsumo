@@ -1,5 +1,8 @@
 <?php
+require_once "abastecimento.class.php";
+$abastecimento = new Abastecimento_class;
 $id_veiculo = $_GET['id_veiculo'];
+$abastecimento->setIdVeiculo($id_veiculo);
 ?>
 
 <h2>Abastecer</h2>
@@ -18,7 +21,7 @@ $id_veiculo = $_GET['id_veiculo'];
     <br>
     <label for="hodometro">Hodômetro</label>
     <br>
-    <input type="number" name="hodometro">
+    <input type="number" name="hodometro" value='<?php echo $abastecimento->buscarKM()->hodometro;?>' min='<?php echo $abastecimento->buscarKM()->hodometro;?>'>
     <br>
     <label for="data">Data</label>
     <br>
